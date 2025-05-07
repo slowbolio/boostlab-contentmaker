@@ -24,10 +24,10 @@ const isAuthenticated = localStorage.getItem('auth_token') || false;
 
 if (isRoot && !isAuthenticated && !window.location.search.includes('dev=true')) {
   // Redirect to landing page for unauthenticated root access
-  window.location.href = '/landing.html';
+  window.location.href = '/updated-landing.html';
 } else if (window.location.pathname === '/landing') {
   // Explicit landing page request
-  window.location.href = '/landing.html';
+  window.location.href = '/updated-landing.html';
 } else {
   // Render the React application
   ReactDOM.createRoot(document.getElementById('root')!).render(

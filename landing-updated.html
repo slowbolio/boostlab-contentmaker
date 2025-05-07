@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
+injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;</script>
+
+  <script type="module" src="/@vite/client"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoostLab ContentMaker - AI-driven innehållsgenerator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --color-dark: #1A1A1D;
+            --color-darker: #121214;
+            --color-dark-accent: #343A40;
+            --color-orange: #FF6B00;
+            --color-orange-light: #FF9900;
+            --color-blue: #4A90E2;
+            --color-blue-light: #5CA7FF;
+            --color-text: #F5F5F5;
+            --color-text-muted: #A0AEC0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-dark);
+            background-image: radial-gradient(circle at 50% 50%, rgba(74, 144, 226, 0.05) 0%, rgba(26, 26, 29, 0) 70%);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .bg-stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #FFF;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, var(--color-orange) 0%, var(--color-orange-light) 100%);
+            color: white;
+            font-weight: 500;
+            padding: 12px 24px;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(255, 107, 0, 0.2), 0 4px 6px -2px rgba(255, 107, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-text);
+            font-weight: 500;
+            padding: 12px 24px;
+            border-radius: 0.375rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-link {
+            color: var(--color-text);
+            padding: 0.5rem 1rem;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--color-orange);
+        }
+        
+        .hero-shape {
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 70%;
+            height: 90%;
+            background: radial-gradient(50% 50% at 50% 50%, rgba(255, 107, 0, 0.08) 0%, rgba(255, 107, 0, 0) 100%);
+            filter: blur(60px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        
+        .feature-card {
+            background-color: rgba(52, 58, 64, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 107, 0, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(90deg, var(--color-orange) 0%, var(--color-orange-light) 100%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Stöd för text-gradient i olika webbläsare */
+        .text-transparent {
+            color: transparent;
+        }
+        .bg-clip-text {
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background stars -->
+    <div class="bg-stars" id="stars"></div>
+    
+    <!-- Background shape -->
+    <div class="hero-shape"></div>
+    
+    <!-- Header/Navigation -->
+    <header class="py-4 px-6 backdrop-blur-sm bg-opacity-50 bg-gray-900 fixed w-full z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <svg class="h-8 w-8 text-orange-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="url(#paint0_linear)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="4" y1="12" x2="20" y2="12" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FF6B00"/>
+                            <stop offset="1" stop-color="#FF9900"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="flex flex-col">
+                    <span class="text-lg font-bold">BoostLab</span>
+                    <span class="text-xs block text-orange-400">CONTENTMAKER</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#funktioner" class="nav-link">Funktioner</a>
+                <a href="#hur-det-fungerar" class="nav-link">Hur det fungerar</a>
+                <a href="#priser" class="nav-link">Priser</a>
+                <a href="/" class="btn-secondary">Logga in</a>
+                <a href="#" class="btn-primary">Kom igång</a>
+            </div>
+            
+            <div class="md:hidden">
+                <button class="text-white focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                        Skapa professionellt innehåll på <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-400">minuter, inte timmar</span>
+                    </h1>
+                    
+                    <p class="text-xl text-gray-300 mb-8 max-w-lg">
+                        BoostLab ContentMaker hjälper svenska företag att generera engagerande och konverterande innehåll med AI-teknik – skräddarsytt för din verksamhet.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#" class="btn-primary">
+                            Skapa ditt första innehåll
+                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                        
+                        <a href="#demo" class="btn-secondary">
+                            Se hur det fungerar
+                            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 relative">
+                    <div class="rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 shadow-xl overflow-hidden">
+                        <div class="p-1 bg-gradient-to-r from-orange-500 to-orange-400"></div>
+                        <div class="p-6">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                <div class="ml-2 text-xs text-gray-400">BoostLab ContentMaker</div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-gray-800 rounded p-4">
+                                    <h3 class="text-lg font-semibold mb-2">Instagram Inlägg</h3>
+                                    <div class="text-gray-300 text-sm">
+                                        ✨ NYTT ERBJUDANDE: Upptäck vår senaste kollektion! ✨<br><br>
+                                        Vi är stolta över att presentera vår spännande nya serie som kommer förändra hur du ser på [produktkategori].<br><br>
+                                        🔥 Fördelar:<br>
+                                        • Design i världsklass<br>
+                                        • Hållbara material<br>
+                                        • Svensktillverkad kvalitet<br><br>
+                                        Kommentera med en 💙 för mer information!<br><br>
+                                        #NyaKollektionen #SvenskDesign #Kvalitet
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end space-x-3">
+                                    <button class="px-3 py-1 rounded bg-blue-500 text-white text-sm">Redigera</button>
+                                    <button class="px-3 py-1 rounded bg-gradient-to-r from-orange-500 to-orange-400 text-white text-sm">Spara</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -top-6 -right-6 w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full opacity-70 animate-pulse"></div>
+                    <div class="absolute -bottom-4 -left-4 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-500 rounded-full opacity-70 animate-pulse delay-1000"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits / Key Features -->
+    <section id="funktioner" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Skapa bättre innehåll, snabbare</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Vår AI-drivna plattform är designad för att hjälpa småföretag att skapa professionellt innehåll utan att behöva anställa en marknadsavdelning.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Snabbt och effektivt</h3>
+                    <p class="text-gray-300">
+                        Generera färdigt innehåll för alla dina kanaler på bara några minuter istället för flera timmar.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Skräddarsytt innehåll</h3>
+                    <p class="text-gray-300">
+                        Allt innehåll anpassas efter din varumärkeston, målgrupp och affärsmål för maximal effekt.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Optimerat för sociala medier</h3>
+                    <p class="text-gray-300">
+                        Färdiga mallar för Instagram, LinkedIn, Facebook och TikTok som ger dig bättre engagemang.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Teamsamarbete</h3>
+                    <p class="text-gray-300">
+                        Enkelt att dela och samarbeta kring innehåll med ditt team för att skapa en enhetlig röst.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">GDPR-kompatibel</h3>
+                    <p class="text-gray-300">
+                        Säker hantering av data och innehåll i enlighet med europeiska integritetsregler.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Svenska språket</h3>
+                    <p class="text-gray-300">
+                        Optimerat för att skapa korrekt och naturligt innehåll på svenska som känns autentiskt.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How it works -->
+    <section id="hur-det-fungerar" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Så enkelt fungerar det</h2>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">
+                    Vår process är designad för att vara enkel och effektiv, så att du kan fokusera på att växa din verksamhet.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Välj mall</h3>
+                    <p class="text-gray-300">
+                        Välj den typ av innehåll du behöver skapa från vårt bibliotek av optimerade mallar.
+                    </p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Anpassa innehållet</h3>
+                    <p class="text-gray-300">
+                        Lägg till ditt ämne, målgrupp och ton som vår AI använder för att skapa skräddarsytt innehåll.
+                    </p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-white text-2xl font-bold">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Redigera och publicera</h3>
+                    <p class="text-gray-300">
+                        Granska, redigera och spara innehållet. Sedan är det redo att publiceras på dina kanaler.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <a href="#" class="btn-primary">
+                    Kom igång nu
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-16 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="h-8 w-8 text-orange-500" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L20 7V17L12 22L4 17V7L12 2Z" stroke="url(#paint0_linear_footer)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <defs>
+                                <linearGradient id="paint0_linear_footer" x1="4" y1="12" x2="20" y2="12" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FF6B00"/>
+                                    <stop offset="1" stop-color="#FF9900"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="flex flex-col">
+                            <span class="text-lg font-bold">BoostLab</span>
+                            <span class="text-xs block text-orange-400">CONTENTMAKER</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-gray-400 max-w-xs">
+                        BoostLab ContentMaker är en AI-driven plattform för att generera engagerande innehåll för sociala medier.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Produkt</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#funktioner" class="text-gray-400 hover:text-white transition-colors">Funktioner</a></li>
+                            <li><a href="#priser" class="text-gray-400 hover:text-white transition-colors">Priser</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">API</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Företag</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Om oss</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Kontakt</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blogg</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Juridiskt</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sekretess</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Villkor</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">GDPR</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">
+                    &copy; 2025 BoostLab. Alla rättigheter förbehållna.
+                </p>
+                
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 5.92C21.2 6.25 20.39 6.48 19.55 6.58C20.4 6.03 21.06 5.17 21.36 4.17C20.55 4.67 19.65 5.01 18.69 5.2C17.89 4.34 16.77 3.8 15.54 3.8C13.17 3.8 11.25 5.7 11.25 8.06C11.25 8.38 11.28 8.7 11.34 9C7.74 8.83 4.56 7.17 2.44 4.62C2.08 5.24 1.87 5.97 1.87 6.74C1.87 8.2 2.63 9.5 3.76 10.25C3.05 10.23 2.39 10.03 1.8 9.72V9.77C1.8 11.82 3.25 13.54 5.17 13.93C4.83 14.02 4.47 14.07 4.1 14.07C3.84 14.07 3.58 14.04 3.34 14C3.85 15.68 5.42 16.92 7.27 16.95C5.82 18.1 3.98 18.79 1.98 18.79C1.65 18.79 1.32 18.77 1 18.73C2.87 19.95 5.09 20.67 7.47 20.67C15.54 20.67 19.91 14.13 19.91 8.44C19.91 8.26 19.91 8.08 19.9 7.9C20.72 7.29 21.44 6.52 22 5.92Z"/>
+                        </svg>
+                    </a>
+                    
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5229 6.47715 22 12 22C17.5229 22 22 17.5229 22 12C22 6.47715 17.5229 2 12 2ZM8.55806 16.6076C8.52728 16.6385 8.48118 16.661 8.42948 16.6708C8.37777 16.6805 8.32348 16.677 8.27424 16.6606C8.225 16.6443 8.18324 16.6159 8.15498 16.5788C8.12672 16.5418 8.1134 16.4979 8.11714 16.4538L8.35342 14.5617C8.36162 14.4877 8.39321 14.4169 8.43986 14.3553L12.0202 9.02197C12.0388 8.99586 12.0478 8.96614 12.0462 8.935C12.0446 8.90387 12.0324 8.87493 12.0112 8.85048C11.99 8.82602 11.9608 8.80737 11.9283 8.79702C11.8958 8.78667 11.861 8.78502 11.8277 8.79219L10.5806 9.09532C10.5372 9.10492 10.4977 9.10044 10.4631 9.08235C10.4286 9.06426 10.4004 9.03356 10.383 8.9953L9.81323 7.77699C9.78806 7.72307 9.7874 7.66304 9.81137 7.60881C9.83533 7.55458 9.88172 7.5106 9.94142 7.48582L13.7145 5.88442C13.7511 5.86955 13.7909 5.86416 13.8305 5.86878C13.8701 5.87341 13.9082 5.88789 13.9414 5.91094C13.9747 5.93399 14.0022 5.96493 14.0217 6.00157C14.0412 6.03821 14.0522 6.07947 14.0538 6.121L14.1938 12.3796C14.195 12.417 14.1866 12.4541 14.169 12.4879C14.1515 12.5217 14.1254 12.5511 14.0929 12.5739L13.9385 12.6799C13.904 12.704 13.8643 12.7193 13.8225 12.7247C13.7807 12.73 13.7376 12.7253 13.6978 12.7107C13.6581 12.6961 13.6229 12.6722 13.595 12.6411C13.5671 12.61 13.5472 12.5726 13.5373 12.5316L13.0602 10.7724C13.0475 10.7207 13.0144 10.6762 12.9674 10.6485C12.9204 10.6209 12.863 10.6125 12.8086 10.6247L9.76806 11.1911C9.70467 11.2052 9.64742 11.2376 9.6061 11.2826L8.61454 12.8035C8.5911 12.841 8.57878 12.8838 8.5784 12.9281C8.57801 12.9724 8.58958 13.0154 8.61246 13.0532L9.24406 14.0937C9.27195 14.1382 9.31455 14.1745 9.36712 14.1977C9.41969 14.2209 9.47996 14.2302 9.53864 14.2246L11.3795 14.0256C11.4236 14.0209 11.4685 14.0252 11.5107 14.0381C11.5529 14.051 11.5915 14.0722 11.624 14.1004L11.7649 14.2335C11.8006 14.2644 11.8262 14.3048 11.8388 14.3498C11.8513 14.3947 11.8503 14.4425 11.8358 14.4871C11.8212 14.5316 11.7937 14.571 11.7566 14.6005C11.7196 14.6301 11.6748 14.6486 11.6279 14.6538L9.09302 14.9226C9.04613 14.9278 9.00082 14.942 8.95986 14.9643L8.55806 16.6076Z"/>
+                        </svg>
+                    </a>
+                    
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21.43 14.07C21.31 14.87 21.13 15.36 20.88 15.72C20.59 16.15 20.2 16.39 19.7 16.42C18.93 16.47 18.32 16.12 17.88 15.37C17.57 14.83 17.42 13.86 17.42 12.45C17.42 9.5 17.73 7.59 18.35 6.74C18.73 6.2 19.26 5.93 19.94 5.93C20.41 5.93 20.79 6.08 21.06 6.36C21.33 6.65 21.49 7.06 21.52 7.61C21.53 7.73 21.54 7.92 21.54 8.18L21.54 8.93C21.54 9.59 21.5 10.58 21.43 12C21.42 12.67 21.42 13.33 21.43 14.07ZM17.76 3.37C16.63 2.46 15.18 2 13.39 2H2V18.16C2 19.42 2.47 20.42 3.38 21.15C4.28 21.89 5.43 22.16 6.82 21.99H13.39C15.18 21.99 16.63 21.54 17.76 20.63C18.89 19.72 19.45 18.44 19.45 16.77C19.45 16.19 19.35 15.71 19.15 15.34C18.94 14.96 18.64 14.77 18.24 14.77C17.31 14.77 16.84 15.4 16.84 16.68C16.84 17.16 16.9 17.56 17.03 17.87C17.16 18.19 17.12 18.43 16.9 18.6C16.62 18.81 16.15 18.92 15.5 18.92H6.42C5.82 18.92 5.38 18.78 5.09 18.49C4.8 18.2 4.65 17.73 4.65 17.06V5.3C4.65 4.63 4.8 4.16 5.09 3.87C5.38 3.58 5.82 3.44 6.42 3.44H12.47C14.41 3.44 15.85 3.61 16.8 3.94C16.92 3.99 17.04 4 17.15 3.96C17.27 3.92 17.36 3.85 17.44 3.76C17.55 3.62 17.62 3.5 17.65 3.37H17.76Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Generate stars background
+        document.addEventListener("DOMContentLoaded", function() {
+            const starsContainer = document.getElementById('stars');
+            const starsCount = 150;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random size
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random opacity
+                star.style.opacity = Math.random() * 0.7 + 0.3;
+                
+                starsContainer.appendChild(star);
+            }
+        });
+    </script>
+</body>
+</html>

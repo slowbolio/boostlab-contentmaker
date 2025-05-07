@@ -1,0 +1,196 @@
+import React from 'react';
+import { ChevronRight, Play, ArrowRight, Layers, MessageSquare, Zap, Video, Check } from 'lucide-react';
+
+const App = () => {
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+      {/* Landing Page */}
+      <div className="w-[375px] h-[812px] bg-white rounded-xl overflow-hidden shadow-lg relative">
+        {/* Header */}
+        <nav className="px-6 py-4 flex justify-between items-center border-b border-gray-100">
+          <div className="flex items-center">
+            <div className="text-orange-500 font-bold text-2xl">BoostLab</div>
+          </div>
+          <div className="flex items-center space-x-5">
+            <a href="/dashboard" className="text-gray-600 text-sm hover:text-orange-500 transition-colors">
+              Logga in
+            </a>
+            <a href="#" className="bg-gray-900 text-white text-sm px-4 py-2 rounded-md hover:bg-black transition-colors">
+              Kom igång
+            </a>
+          </div>
+        </nav>
+        
+        {/* Mobile Menu */}
+        <div className="px-6 py-3 flex justify-between border-b border-gray-100">
+          <a href="#" className="text-gray-900 text-xs font-medium">Funktioner</a>
+          <a href="#" className="text-gray-500 text-xs">Hur det fungerar</a>
+          <a href="#" className="text-gray-500 text-xs">Priser</a>
+          <a href="#" className="text-gray-500 text-xs">Om oss</a>
+        </div>
+
+        {/* Hero Section */}
+        <div className="px-6 pt-12 pb-8">
+          <div className="inline-block px-2 py-1 rounded bg-orange-100 text-orange-600 text-xs font-medium mb-4">
+            NYHET
+          </div>
+          <h1 className="text-3xl font-serif font-bold leading-tight text-gray-900 mb-5">
+            Skapa professionellt innehåll med AI på minuter
+          </h1>
+          <p className="text-gray-600 mb-8 text-sm leading-relaxed">
+            BoostLab ContentMaker hjälper svenska företag att generera engagerande och konverterande innehåll för sociala medier – skräddarsytt för din verksamhet.
+          </p>
+          <div className="flex flex-col space-y-3">
+            <a href="#" className="flex items-center justify-center bg-orange-500 text-white font-medium py-3 px-5 rounded-md hover:bg-orange-600 transition-colors">
+              <span>Prova gratis</span>
+              <ChevronRight size={18} className="ml-1" />
+            </a>
+            <div className="flex items-center justify-center space-x-4">
+              <a href="#" className="flex items-center text-gray-600 text-sm">
+                <Play size={16} className="mr-1 text-orange-500" />
+                <span>Se demo</span>
+              </a>
+              <a href="/dashboard" className="flex items-center text-gray-600 text-sm">
+                <ArrowRight size={16} className="mr-1 text-orange-500" />
+                <span>Logga in</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Product Preview */}
+        <div className="px-6 py-4">
+          <div className="bg-gray-50 border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+            <div className="h-1 bg-gradient-to-r from-orange-500 to-orange-400"></div>
+            <div className="p-4">
+              <div className="flex items-center space-x-2 mb-3">
+                <div className="h-2 w-2 bg-red-500 rounded-full"></div>
+                <div className="h-2 w-2 bg-yellow-500 rounded-full"></div>
+                <div className="h-2 w-2 bg-green-500 rounded-full"></div>
+                <span className="text-xs text-gray-400 ml-1">BoostLab ContentMaker</span>
+              </div>
+              
+              <div className="bg-white rounded-lg p-3 border border-gray-100">
+                <h3 className="text-gray-900 font-medium">Instagram Inlägg</h3>
+                <p className="text-gray-600 text-xs mt-2">✨ NYTT ERBJUDANDE: Upptäck vår senaste kollektion! ✨</p>
+                <p className="text-gray-600 text-xs mt-2">
+                  Vi är stolta över att presentera vår spännande nya serie som kommer förändra hur du ser på [produktkategori].
+                </p>
+                <div className="mt-2 text-xs text-gray-600">
+                  <p>🔥 Fördelar:</p>
+                  <ul className="pl-4 mt-1">
+                    <li>• Design i världsklass</li>
+                    <li>• Hållbara material</li>
+                    <li>• Svensktillverkad kvalitet</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="flex justify-end mt-3 space-x-2">
+                <button className="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded hover:bg-gray-200 transition-colors">Redigera</button>
+                <button className="bg-orange-500 text-white text-xs px-3 py-1 rounded hover:bg-orange-600 transition-colors">Spara</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Features Section */}
+        <div className="px-6 py-4">
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Skapa bättre innehåll, snabbare</h2>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-white border border-gray-100 rounded-lg p-3 transition-all duration-300 hover:shadow-md">
+              <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mb-2">
+                <Zap size={16} className="text-orange-500" />
+              </div>
+              <h3 className="text-gray-900 text-sm font-medium">Snabbt & effektivt</h3>
+              <p className="text-gray-500 text-xs mt-1">Generera innehåll på bara några minuter</p>
+            </div>
+            <div className="bg-white border border-gray-100 rounded-lg p-3 transition-all duration-300 hover:shadow-md">
+              <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mb-2">
+                <Video size={16} className="text-orange-500" />
+              </div>
+              <h3 className="text-gray-900 text-sm font-medium">AI-Video</h3>
+              <p className="text-gray-500 text-xs mt-1">Skapa professionella videos med AI</p>
+            </div>
+            <div className="bg-white border border-gray-100 rounded-lg p-3 transition-all duration-300 hover:shadow-md">
+              <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mb-2">
+                <MessageSquare size={16} className="text-orange-500" />
+              </div>
+              <h3 className="text-gray-900 text-sm font-medium">Svenskanpassat</h3>
+              <p className="text-gray-500 text-xs mt-1">Optimerat för svenska språket</p>
+            </div>
+            <div className="bg-white border border-gray-100 rounded-lg p-3 transition-all duration-300 hover:shadow-md">
+              <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mb-2">
+                <Layers size={16} className="text-orange-500" />
+              </div>
+              <h3 className="text-gray-900 text-sm font-medium">Mallar</h3>
+              <p className="text-gray-500 text-xs mt-1">Färdiga mallar för alla kanaler</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Pricing Section */}
+        <div className="px-6 py-4">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-medium text-gray-900">Enkla priser</h2>
+            <a href="#" className="text-orange-500 text-xs font-medium">Visa alla →</a>
+          </div>
+          
+          <div className="bg-white border border-gray-200 rounded-lg p-4 relative">
+            <div className="absolute top-0 right-4 -mt-2 px-2 py-1 bg-orange-500 text-white text-xs font-medium rounded">
+              Populär
+            </div>
+            <h3 className="text-gray-900 font-medium">Standard</h3>
+            <p className="text-gray-500 text-xs">För företag som regelbundet skapar innehåll</p>
+            
+            <div className="mt-2 mb-3">
+              <span className="text-gray-900 text-2xl font-bold">149 kr</span>
+              <span className="text-gray-500 text-sm">/månad</span>
+            </div>
+            
+            <ul className="space-y-1 mb-4">
+              <li className="flex items-center text-xs text-gray-600">
+                <Check size={14} className="text-green-500 mr-1 flex-shrink-0" />
+                <span>50 prompter per månad</span>
+              </li>
+              <li className="flex items-center text-xs text-gray-600">
+                <Check size={14} className="text-green-500 mr-1 flex-shrink-0" />
+                <span>Alla standardmallar</span>
+              </li>
+              <li className="flex items-center text-xs text-gray-600">
+                <Check size={14} className="text-green-500 mr-1 flex-shrink-0" />
+                <span>Företagsprofil</span>
+              </li>
+            </ul>
+            
+            <button className="bg-orange-500 text-white text-xs font-medium py-2 rounded w-full hover:bg-orange-600 transition-colors">
+              Välj Standard
+            </button>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="px-6 py-6 mt-2 border-t border-gray-100">
+          <h2 className="text-gray-900 text-lg font-medium mb-1">Redo att revolutionera din innehållsstrategi?</h2>
+          <p className="text-gray-500 text-xs mb-4">
+            Börja idag och få 5 gratis prompter. Inget kreditkort krävs.
+          </p>
+          <div className="flex space-x-3">
+            <a href="#" className="flex-1 bg-orange-500 text-white text-sm font-medium py-2 rounded-md flex items-center justify-center hover:bg-orange-600 transition-colors">
+              Börja gratis
+            </a>
+            <a 
+              href="/dashboard" 
+              className="flex-1 bg-white border border-gray-200 text-gray-600 text-sm font-medium py-2 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors"
+            >
+              Logga in
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
+
