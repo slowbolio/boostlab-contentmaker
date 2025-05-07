@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  # MongoDB
+  mongodb:
+    image: mongo:5
+    container_name: boostlab-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: boostlab
+      MONGO_INITDB_ROOT_PASSWORD: boostlabpass
+      MONGO_INITDB_DATABASE: boostlab-content
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - boostlab_network
+      
+  # API Server for MongoDB
+  api:
+    image: node:18
+    container_name: boostlab-api
+    restart: always
+    ports:
+      - "8000:8000"
+    working_dir: /app
+    volumes:
+      - ../src:/app/src
+      - ../package.json:/app/package.json
+    command: /bin/bash -c "cd /app && npm install && npm run dev:server"
+    environment:
+      - PORT=8000
+      - MONGODB_URI=mongodb://boostlab:boostlabpass@mongodb:27017/boostlab-content?authSource=admin
+      - JWT_SECRET=boostlabsecret2025
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-demo}
+    depends_on:
+      - mongodb
+    networks:
+      - boostlab_network
+
+networks:
+  boostlab_network:
+
+volumes:
+  mongodb_data:

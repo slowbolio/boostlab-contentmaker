@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="800" height="600" fill="#1A1A1D"/>
+    
+    <!-- Header -->
+    <rect width="800" height="60" fill="#121214"/>
+    <line x1="0" y1="60" x2="800" y2="60" stroke="#343A40" stroke-width="1"/>
+    
+    <!-- Logo & Brand -->
+    <text x="20" y="37" font-family="Arial" font-size="20" font-weight="bold" fill="#FFFFFF">BoostLab</text>
+    <text x="120" y="37" font-family="Arial" font-size="20" fill="#FF6B00">ContentMaker</text>
+    
+    <!-- Sidebar -->
+    <rect x="0" y="60" width="220" height="540" fill="#121214"/>
+    <line x1="220" y1="60" x2="220" y2="600" stroke="#343A40" stroke-width="1"/>
+    
+    <!-- Active sidebar item -->
+    <rect x="0" y="100" width="220" height="40" fill="rgba(255, 107, 0, 0.1)"/>
+    <rect x="0" y="100" width="3" height="40" fill="#FF6B00"/>
+    <text x="20" y="125" font-family="Arial" font-size="14" fill="#FF6B00">Dashboard</text>
+    
+    <!-- Sidebar items -->
+    <text x="20" y="165" font-family="Arial" font-size="14" fill="#A0AEC0">Projekt</text>
+    <text x="20" y="205" font-family="Arial" font-size="14" fill="#A0AEC0">Mallar</text>
+    <text x="20" y="245" font-family="Arial" font-size="14" fill="#A0AEC0">Skapa innehåll</text>
+    <text x="20" y="285" font-family="Arial" font-size="14" fill="#A0AEC0">Inställningar</text>
+    <text x="20" y="325" font-family="Arial" font-size="14" fill="#A0AEC0">Hjälp</text>
+    
+    <!-- Main content -->
+    <text x="240" y="100" font-family="Arial" font-size="24" font-weight="bold" fill="#FFFFFF">Välkommen tillbaka, Anna!</text>
+    <text x="240" y="130" font-family="Arial" font-size="14" fill="#A0AEC0">Här är en överblick över dina innehållsprojekt</text>
+    
+    <!-- Cards -->
+    <rect x="240" y="150" width="240" height="120" rx="5" ry="5" fill="#202024" stroke="#343A40" stroke-width="1"/>
+    <text x="255" y="180" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">Aktiva projekt</text>
+    <text x="255" y="220" font-family="Arial" font-size="28" font-weight="bold" fill="#FFFFFF">8</text>
+    <text x="255" y="245" font-family="Arial" font-size="13" fill="#A0AEC0">Pågående innehållsprojekt</text>
+    
+    <rect x="500" y="150" width="240" height="120" rx="5" ry="5" fill="#202024" stroke="#343A40" stroke-width="1"/>
+    <text x="515" y="180" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">Sparade mallar</text>
+    <text x="515" y="220" font-family="Arial" font-size="28" font-weight="bold" fill="#FFFFFF">12</text>
+    <text x="515" y="245" font-family="Arial" font-size="13" fill="#A0AEC0">Anpassade innehållsmallar</text>
+    
+    <rect x="240" y="290" width="240" height="120" rx="5" ry="5" fill="#202024" stroke="#343A40" stroke-width="1"/>
+    <text x="255" y="320" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">Genererade prompter</text>
+    <text x="255" y="360" font-family="Arial" font-size="28" font-weight="bold" fill="#FFFFFF">47</text>
+    <text x="255" y="385" font-family="Arial" font-size="13" fill="#A0AEC0">Denna månad</text>
+    
+    <!-- Projects section -->
+    <rect x="500" y="290" width="280" height="290" rx="5" ry="5" fill="#202024" stroke="#343A40" stroke-width="1"/>
+    
+    <!-- Projects header -->
+    <rect x="500" y="290" width="280" height="50" rx="5" ry="5" fill="rgba(0, 0, 0, 0.2)"/>
+    <text x="515" y="320" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">Senaste innehållsprojekt</text>
+    
+    <!-- Create button -->
+    <rect x="650" y="305" width="120" height="30" rx="4" ry="4" fill="url(#orangeGradient)"/>
+    <text x="680" y="325" font-family="Arial" font-size="14" fill="#FFFFFF">Skapa nytt</text>
+    
+    <!-- Project items -->
+    <text x="515" y="360" font-family="Arial" font-size="14" fill="#FFFFFF">Instagram kampanj</text>
+    <text x="690" y="360" font-family="Arial" font-size="13" fill="#A0AEC0">Igår, 15:32</text>
+    <line x1="500" y1="375" x2="780" y2="375" stroke="#343A40" stroke-width="1"/>
+    
+    <text x="515" y="400" font-family="Arial" font-size="14" fill="#FFFFFF">Facebook - Produkt</text>
+    <text x="690" y="400" font-family="Arial" font-size="13" fill="#A0AEC0">2 dagar sedan</text>
+    <line x1="500" y1="415" x2="780" y2="415" stroke="#343A40" stroke-width="1"/>
+    
+    <text x="515" y="440" font-family="Arial" font-size="14" fill="#FFFFFF">LinkedIn - Företag</text>
+    <text x="690" y="440" font-family="Arial" font-size="13" fill="#A0AEC0">5 dagar sedan</text>
+    <line x1="500" y1="455" x2="780" y2="455" stroke="#343A40" stroke-width="1"/>
+    
+    <text x="515" y="480" font-family="Arial" font-size="14" fill="#FFFFFF">Nyhetsbrev - Maj</text>
+    <text x="690" y="480" font-family="Arial" font-size="13" fill="#A0AEC0">1 vecka sedan</text>
+    
+    <!-- Definitions -->
+    <defs>
+        <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF6B00"/>
+            <stop offset="100%" stop-color="#FF9900"/>
+        </linearGradient>
+    </defs>
+</svg>
