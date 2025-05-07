@@ -17,16 +17,12 @@ const queryClient = new QueryClient({
   },
 });
 
-// Check if the user is accessing the root URL and not authenticated
-// For simplicity in development, we'll check for a special case
-const isRoot = window.location.pathname === '/';
-const isAuthenticated = localStorage.getItem('auth_token') || false;
+// Check if the user is accessing the landing page path
+const isLandingPath = window.location.pathname === '/landing';
 
-if (isRoot && !isAuthenticated && !window.location.search.includes('dev=true')) {
-  // Redirect to landing page for unauthenticated root access
-  window.location.href = '/updated-landing.html';
-} else if (window.location.pathname === '/landing') {
-  // Explicit landing page request
+// Always render the React application by default
+if (isLandingPath) {
+  // Explicit landing page request - redirect to landing page
   window.location.href = '/updated-landing.html';
 } else {
   // Render the React application
